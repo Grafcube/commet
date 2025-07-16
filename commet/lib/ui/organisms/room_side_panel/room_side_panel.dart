@@ -98,7 +98,7 @@ class _RoomSidePanelState extends State<RoomSidePanel> {
   Widget buildPanelContent(BuildContext context) {
     switch (state) {
       case SidePanelState.defaultView:
-        return buildDefaultView();
+        return buildDefaultView(context);
       case SidePanelState.thread:
         return buildThread();
       case SidePanelState.search:
@@ -128,10 +128,13 @@ class _RoomSidePanelState extends State<RoomSidePanel> {
     });
   }
 
-  Widget buildDefaultView() {
+  Widget buildDefaultView(BuildContext context) {
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     return Column(
       children: [
-        if (Layout.mobile)
+        if (!isLandscape)
           RoomQuickAccessMenuViewMobile(
             room: widget.state.currentRoom!,
             key: ValueKey(

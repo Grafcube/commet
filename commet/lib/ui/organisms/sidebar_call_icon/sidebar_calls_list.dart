@@ -86,7 +86,10 @@ class _SidebarCallsListState extends State<SidebarCallsList> {
   }
 
   Widget buildOverlay(BuildContext context) {
-    if (Layout.mobile) {
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    if (isLandscape) {
       return Container();
     }
 

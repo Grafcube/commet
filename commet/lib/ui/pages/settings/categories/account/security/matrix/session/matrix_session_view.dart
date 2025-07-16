@@ -1,4 +1,3 @@
-import 'package:commet/config/layout_config.dart';
 import 'package:commet/ui/atoms/tiny_pill.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -31,6 +30,9 @@ class MatrixSessionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     return DecoratedBox(
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surfaceContainerLow,
@@ -85,10 +87,10 @@ class MatrixSessionView extends StatelessWidget {
                     ),
                   ],
                 ),
-                if (Layout.desktop) verifyButton()
+                if (isLandscape) verifyButton()
               ],
             ),
-            if (Layout.mobile) Align(child: verifyButton()),
+            if (!isLandscape) Align(child: verifyButton()),
           ],
         ),
       ),

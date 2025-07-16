@@ -6,7 +6,6 @@ import 'package:commet/client/timeline_events/timeline_event_encrypted.dart';
 import 'package:commet/client/timeline_events/timeline_event_generic.dart';
 import 'package:commet/client/timeline_events/timeline_event_message.dart';
 import 'package:commet/client/timeline_events/timeline_event_sticker.dart';
-import 'package:commet/config/layout_config.dart';
 import 'package:commet/debug/log.dart';
 import 'package:commet/diagnostic/benchmark_values.dart';
 import 'package:commet/main.dart';
@@ -215,42 +214,38 @@ class TimelineViewEntryState extends State<TimelineViewEntry>
       );
     }
 
-    if (Layout.desktop) {
-      result = MouseRegion(
-        onEnter: (_) => widget.onEventHovered?.call(eventId),
-        child: result,
-      );
-    }
+    result = MouseRegion(
+      onEnter: (_) => widget.onEventHovered?.call(eventId),
+      child: result,
+    );
 
-    if (Layout.mobile) {
-      result = InkWell(
-        onLongPress: () {
-          var event = widget.timeline.tryGetEvent(eventId);
-          if (event == null) {
-            return;
-          }
+    result = InkWell(
+      onLongPress: () {
+        var event = widget.timeline.tryGetEvent(eventId);
+        if (event == null) {
+          return;
+        }
 
-          showModalBottomSheet(
-              showDragHandle: true,
-              isScrollControlled: true,
-              elevation: 0,
-              context: context,
-              builder: (context) => TimelineEventMenuDialog(
-                    event: event,
+        showModalBottomSheet(
+            showDragHandle: true,
+            isScrollControlled: true,
+            elevation: 0,
+            context: context,
+            builder: (context) => TimelineEventMenuDialog(
+                  event: event,
+                  timeline: widget.timeline,
+                  menu: TimelineEventMenu(
                     timeline: widget.timeline,
-                    menu: TimelineEventMenu(
-                      timeline: widget.timeline,
-                      isThreadTimeline: widget.isThreadTimeline,
-                      event: event,
-                      setEditingEvent: widget.setEditingEvent,
-                      setReplyingEvent: widget.setReplyingEvent,
-                      onActionFinished: () => Navigator.of(context).pop(),
-                    ),
-                  ));
-        },
-        child: result,
-      );
-    }
+                    isThreadTimeline: widget.isThreadTimeline,
+                    event: event,
+                    setEditingEvent: widget.setEditingEvent,
+                    setReplyingEvent: widget.setReplyingEvent,
+                    onActionFinished: () => Navigator.of(context).pop(),
+                  ),
+                ));
+      },
+      child: result,
+    );
 
     if (selected) {
       result = Container(

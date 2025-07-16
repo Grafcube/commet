@@ -17,20 +17,19 @@ class SettingsPage extends StatelessWidget {
   }
 
   Widget pickChatView(BuildContext context) {
-    if (Layout.desktop) {
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    if (isLandscape) {
       return DesktopSettingsPage(
         settings: settings,
         buttons: buttons,
       );
-    }
-    if (Layout.mobile) {
+    } else {
       return MobileSettingsPage(
         settings: settings,
         buttons: buttons,
       );
     }
-
-    throw Exception(
-        "No SettingsPage has been defined for the current build config");
   }
 }

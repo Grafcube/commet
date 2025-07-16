@@ -1,4 +1,3 @@
-import 'package:commet/config/layout_config.dart';
 import 'package:flutter/material.dart';
 import 'package:tiamat/tiamat.dart' as tiamat;
 
@@ -10,9 +9,12 @@ class RoomTimelineOverlayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var padding = Layout.mobile
-        ? const EdgeInsets.fromLTRB(18, 12, 18, 12)
-        : const EdgeInsets.fromLTRB(12, 4, 12, 4);
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    var padding = isLandscape
+        ? const EdgeInsets.fromLTRB(12, 4, 12, 4)
+        : const EdgeInsets.fromLTRB(18, 12, 18, 12);
     return Padding(
         padding: const EdgeInsets.all(8.0),
         child: DecoratedBox(

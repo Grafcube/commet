@@ -68,6 +68,7 @@
               android-tools
               android-studio
               bashInteractive
+              webkitgtk_4_1
         ];
 
       in

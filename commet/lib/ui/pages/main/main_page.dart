@@ -122,10 +122,13 @@ class MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (Layout.mobile) {
-      return MainPageViewMobile(this);
-    } else {
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    if (isLandscape) {
       return MainPageViewDesktop(this);
+    } else {
+      return MainPageViewMobile(this);
     }
   }
 
